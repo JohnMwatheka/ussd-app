@@ -42,7 +42,8 @@ app.post('/ussd', (req, res) => {
             // Here you would implement the logic to actually process the airtime purchase
             // For this example, we'll assume the purchase is successful
             response = `END You have purchased airtime worth $${amount}`;
-            // You can also update user balance or log the transaction as needed
+            // Optionally update user balance or log the transaction
+            userBalances[phoneNumber] = (userBalances[phoneNumber] || 0) - amount; // Deduct the amount from user's balance
         }
     } else {
         // Handle invalid input
