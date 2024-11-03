@@ -18,10 +18,11 @@ const userBalances = {
 
 // USSD endpoint
 app.post('/ussd', (req, res) => {
+    console.log('Received USSD Request:', req.body); // Log incoming request body
     const { text, sessionId, phoneNumber } = req.body;
     let response = '';
 
-    if (text === '') {
+    if (!text) {
         // Initial menu
         response = 'CON Welcome to My USSD App\n';
         response += '1. Check Balance\n';
@@ -39,10 +40,9 @@ app.post('/ussd', (req, res) => {
         if (isNaN(amount) || amount <= 0) {
             response = 'END Invalid amount. Please enter a valid number.';
         } else {
-            // Here you would implement the logic to actually process the airtime purchase
-            // For this example, we'll assume the purchase is successful
+            // Simulate airtime purchase success
             response = `END You have purchased airtime worth $${amount}`;
-            // Optionally update user balance or log the transaction
+            // Update user balance
             userBalances[phoneNumber] = (userBalances[phoneNumber] || 0) - amount; // Deduct the amount from user's balance
         }
     } else {
