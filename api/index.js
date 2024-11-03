@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const africastalking = require('africastalking');
-const config = require('./config'); // Ensure this file contains your Africa's Talking credentials
+const config = require('../config'); // Adjust the path if needed
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -55,8 +55,4 @@ app.post('/ussd', (req, res) => {
     res.send(response);
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`USSD app running on port ${PORT}`);
-});
+module.exports = app; // Export the app for Vercel
